@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="ChineseEcomQA">
+  <meta property="og:title" content="ChineseEcomQA"/>
+  <meta property="og:description" content="ChineseEcomQA: A Scalable E-commerce Concept Evaluation Benchmark for Large Language Models"/>
+  <meta property="og:url" content="https://github.com/OpenStellarTeam/ChineseEcomQA"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>ChineseEcomQA</title>
+  <link rel="icon" type="image/x-icon" href="static/images/Stellar.svg">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script>
+    // Function to sort table rows within a specific tbody
+    function sortTableRows(tbody) {
+      const rows = Array.from(tbody.rows).filter(row => !row.classList.contains('merged-row'));
+      rows.sort((a, b) => {
+        const aCO = parseFloat(a.cells[1].textContent);
+        const bCO = parseFloat(b.cells[1].textContent);
+        return bCO - aCO; // Descending order
+      });
+      return rows;
+    }
+
+    window.onload = function() {
+      const table = document.querySelector('table');
+      const tbodies = table.tBodies;
+      Array.from(tbodies).forEach(tbody => {
+        const sortedRows = sortTableRows(tbody);
+        sortedRows.forEach(row => tbody.removeChild(row));
+        sortedRows.forEach(row => tbody.appendChild(row));
+      });
+    };
+  </script>
+</head>
+<body>
+
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2; /* Light color for headers */
+    }
+    .merged-row {
+        background-color: #e0e0e0; /* Light color for merged row */
+    }
+    .link-block a {
+      margin: 0 5px; /* 调整为适合的值 */
+    }
+
+  </style>
+  
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <img src="static/images/Stellar.svg" alt="Icon" style="width:50px; height:50px; vertical-align:middle; margin-right:10px;">
+              ChineseEcomQA: A Scalable E-commerce Concept Evaluation Benchmark for Large Language Models
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <span> Haibin Chen</span><sup>*</sup>,</span>
+                
+              <span class="author-block">
+                <span> Kangtao Lv</span><sup>*</sup>,</span>
+
+              <span class="author-block">
+                <span> Chengwei Hu,</span>
+              </span>
+              <span class="author-block">
+                <span> Yanshi Li,</span>
+              </span>
+              <span class="author-block">
+                <span> Yujin Yuan,</span>
+              </span>
+              <br>
+              <span class="author-block">
+                <span> Yancheng He,</span>
+              </span>
+              <span class="author-block">
+                <span> Xingyao Zhang,</span>
+              </span>
+              <span class="author-block">
+                <span> Langming Liu,</span>
+              </span>
+              <span class="author-block">
+                <span> Shilei Liu,</span>
+              </span>
+              <span class="author-block">
+                <span> Wenbo Su,</span>
+              </span>
+              <span class="author-block">
+                <span> Bo Zheng</span><sup>&dagger;
+              </span>
+
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block" style="color: rgb(181, 44, 44);">Taobao & Tmall Group of Alibaba<br> </span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <span class="eql-cntrb"><small><br><sup>&dagger;</sup>Corresponding Author</small></span>
+                    
+                  </div>
+
+                  
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      
+                       <!-- ArXiv abstract Link -->
+                  <span class="link-block">
+                  <a href="https://arxiv.org/abs/2502.20196" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+
+                      <span class="link-block">
+                        <a href="https://huggingface.co/datasets/OpenStellarTeam/Chinese-SimpleQA" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <img src="static/images/hf-logo.png" alt="Hugging Face Logo" style="width: 20px; height: 20px;"/>
+                        </span>
+                          <span>Dataset</span>
+                        </a>
+                      </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/OpenStellarTeam/ChineseEcomQA" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+               
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            With the increasing use of Large Language Models (LLMs) in fields such as e-commerce, domain-specific concept evaluation benchmarks are crucial for assessing their domain capabilities. Existing LLMs may generate factually incorrect information within the complex e-commerce applications. Therefore, it is necessary to build an e-commerce concept benchmark. Existing benchmarks encounter two primary challenges: (1) handle the heterogeneous and diverse
+nature of tasks, (2) distinguish between generality and specificity
+within the e-commerce field. To address these problems, we propose <strong>ChineseEcomQA</strong>, a scalable question-answering benchmark
+focused on fundamental e-commerce concepts. ChineseEcomQA
+is built on three core characteristics: Focus on <strong>Fundamental Concept</strong>, <strong>E-commerce Generality</strong> and <strong>E-commerce Expertise</strong>.
+Fundamental concepts are designed to be applicable across a diverse array of e-commerce tasks, thus addressing the challenge of
+heterogeneity and diversity. Additionally, by carefully balancing
+generality and specificity, ChineseEcomQA effectively differentiates
+between broad e-commerce concepts, allowing for precise validation of domain capabilities. We achieve this through a scalable
+benchmark construction process that combines LLM validation,
+Retrieval-Augmented Generation (RAG) validation, and rigorous
+manual annotation. Based on ChineseEcomQA, we conduct extensive evaluations on mainstream LLMs and provide some valuable insights. We hope that ChineseEcomQA could guide future
+domain-specific evaluations, and facilitate broader LLM adoption
+in e-commerce applications.
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"> E-commerce concepts</h2>
+        <div class="image-container">
+          <img src="static/images/task_overview.png" alt="An overview of the data construction, filtering, verification, and quality control processes of Chinese SimpleQA." style="max-width: 100%; height: auto;">
+      </div>
+      <div class="description2" style="margin-top: 30px; text-align: left;">
+        <p>
+          Starting from the basic elements of e-commerce such as user behavior and product information, we summarized the main types of
+          e-commerce concepts, defined 10 sub-concepts from basic concepts to advanced concepts as follows:
+        </p>
+        <ul style="margin-left: 20px; text-align: left; text-indent: 1em;">
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Industry Categorization.</strong> Given e-commerce corpus (such as user queries or web corpus), the LLMs need to figure out which
+            e-commerce industries and categories are involved. The difficulty lies in distinguishing similar categories in the e-commerce domain.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Industry Concept.</strong> The model needs to understand the specialized knowledge in different e-commerce industries. The difficulty lies in accurately memorizing professional factual knowledge
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Category Concept.</strong> The model must understand which category a common, standard product belongs to.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Brand Concept.</strong> The model needs to recognize major brands and understand some background information about them.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Attribute Concept.</strong> E-commerce text often describes products using basic attributes, like style or age group. The model must have the ability to pick out these specific attribute words.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Spoken Concept.</strong> The e-commerce field is closely related to daily life scenarios, and people often use casual and imprecise
+            language to express what they want. The model needs to understand the true expression forms.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Intent Concept.</strong> Beyond just informal language, sometimes consumers just list a bunch of attributes. The model needs to figure out the consumer's true intention from these phrases (such as how to choose).
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Review Concept.</strong> The model needs to understand common concepts in user comments, such as emotional tendencies, commonly used evaluation aspects, etc.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Relevance Concept.</strong> One of the most crucial concepts of e-commerce is figuring out how relevant a product is to what a user wants. The model needs to integrate basic concepts such as intent concept and category concept to determine the relevance among user expression and products.
+          </li>
+          <li style="margin-bottom: 0.3em;">
+            <strong>• Personalized Concept.</strong> Personalized concept is one of the most important parts of user experience. This requires combining basic e-commerce concepts with general reasoning skills to recommend new product categories that best match a user's recent preferences.
+          </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Data Construction Pipline</h2>
+        <div class="image-container">
+            <img src="static/images/data_construct_pipeline.png" alt="An overview of the data construction, filtering, verification, and quality control processes of ChineseEcomQA." style="max-width: 100%; height: auto;">
+        </div>
+        <div class="description2", style="margin-top: 30px;">
+          <!-- <p>The data construction process for Chinese SimpleQA includes both an automated process and a manual verification process. The automated part involves knowledge content extraction and filtering, automatic generation of question-answer pairs, LLM automatic validation based on criteria, answer factual correctness verification based on RAG (Retrieval-Augmented Generation), and question difficulty filtering.</p>
+          <p>Initially, we collected a large amount of knowledge-rich text content from various knowledge fields, primarily derived from Wikipedia. This content was then processed through a quality assessment model to filter out low-quality data. Based on this, we guided the LLM to generate question-answer pairs according to predefined criteria using these high-quality knowledge contents. To ensure that the generated question-answer pairs met these criteria, we utilized the LLM again for rule-based validation to remove non-conforming data. In this way, we obtained a large set of initially filtered knowledge question-answer pairs. However, relying on a single data source for generation can potentially lead to inaccurate answers. To mitigate this risk, we deployed external retrieval tools to gather more diverse information, guiding the LLM in evaluating the factual correctness of answers based on information from different sources. In this process, incorrect question-answer pairs were discarded. Specifically, we used LlamaIndex as the retrieval method, with search results from Google and Bing as data sources, further enhancing the quality of the dataset.</p>
+          <p>In addition, we filtered the dataset for difficulty to better probe the knowledge boundaries of the LLMs, removing overly simple questions. Specifically, if a question could be correctly answered by all four powerful models, Meta-Llama-3-70B-Instruct, Qwen2.5-72B-Instruct, and GLM-4-Plus, it was deemed too simple and thus discarded. Through this approach, Chinese SimpleQA becomes more challenging.</p> -->
+          <p style="font-weight: bold;color: rgb(200, 26, 151);">ChineseEcomQA's Features</p>
+          <ul style="margin-left: 20px; text-align: left; text-indent: 2em;">
+              <li style="margin-bottom: 1em;">
+                  <strong>• Focus on Fundamental Concept</strong>: We focus on fundamental concepts that enable unified generative evaluation.
+              </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>• E-commerce Generality</strong>: The concepts assessed by the benchmark must be common across the e-commerce industry, avoiding platform-specific implementations or task-specific formulations.
+              </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>• E-commerce Expertise</strong>: Real-world e-commerce problems often require a foundation of specialized e-commerce knowledge, complemented by the application of general comprehension and reasoning skills.
+              </li>
+          </ul>
+          <p style="font-weight: bold;color: rgb(200, 26, 151);">Key Observations</p>
+          <!-- <p style="margin-left: 20px; text-align: left; text-indent: 2em; color: rgb(200, 26, 151);font-weight: bold;">Key observations from our analysis:</p> -->
+          <ul style="margin-left: 20px; text-align: left; text-indent: 2em;">
+              <li style="margin-bottom: 1em;">
+                  <strong>Leading Models:</strong> Deepseek-R1 and Deepseek-V3 are currently the best models, demonstrating the promising potential of powerful foundation LLMs (and reasoning LLMs) in the e-commerce field.
+              </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>Significant Challenges:</strong> ChineseEcomQA poses considerable challenges, with many state-of-the-art models achieving below 60% accuracy on specific sub-concepts              
+                </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>Scaling Laws:</strong> E-commerce concepts follow scaling law, where larger models demonstrate superior capability in advanced concepts.              
+                </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>Calibration:</strong>Larger models show better calibration in confidence estimation.              
+                </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>Reasoning LLMs:</strong>. Deepseek-R1-Distill-Qwen series performs worse than the original Qwen series and struggles to identify and correct its own factual errors, indicating that there are still many challenges in the reasoning ability of open domains.
+                </li>
+              <li style="margin-bottom: 1em;">
+                  <strong>RAG matters:</strong>. When introducing the RAG strategy into existing LLMs, models of various sizes have shown significant performance improvements, narrowing the gap among models.
+                </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">LeaderBoard</h2>
+        
+        <table border="1">
+          <tr>
+            <th rowspan="2">Models</th>
+            <th colspan="1">Accuracy</th>
+            <th colspan="10">Accuracy on 10 sub-concepts</th>
+          </tr>
+          <tr>
+            <th>Avg.</th>
+            <th>IC</th>
+            <th>IDC</th>
+            <th>CC</th>
+            <th>BC</th>
+            <th>AC</th>
+            <th>SC</th>
+            <th>ITC</th>
+            <th>RVC</th>
+            <th>RLC</th>
+            <th>PC</th>
+          </tr>
+          <tr>
+            <th colspan="13">Closed-Source Large Language Models</th>
+          </tr>
+          <tr>
+            <td>GLM-4-Plus</td>
+            <td>69.2</td>
+            <td>57.3</td>
+            <td>54.1</td>
+            <td>76.3</td>
+            <td>77.6</td>
+            <td>69.5</td>
+            <td>59.5</td>
+            <td>72.2</td>
+            <td>83.1</td>
+            <td>68.5</td>
+            <td>74.0</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-max</td>
+            <td>68.5</td>
+            <td>62.2</td>
+            <td>62.2</td>
+            <td>71.1</td>
+            <td>77.6</td>
+            <td>63.0</td>
+            <td>58.5</td>
+            <td>57.8</td>
+            <td>88.7</td>
+            <td>63.9</td>
+            <td>80.4</td>
+          </tr>
+          <tr>
+            <td>Yi-Large</td>
+            <td>67.6</td>
+            <td>56.6</td>
+            <td>59.5</td>
+            <td>71.1</td>
+            <td>81.8</td>
+            <td>62.0</td>
+            <td>58.5</td>
+            <td>70.0</td>
+            <td>70.4</td>
+            <td>68.5</td>
+            <td>78.0</td>
+          </tr>
+          <tr>
+            <td>o1-preview</td>
+            <td>66.8</td>
+            <td>69.2</td>
+            <td>63.1</td>
+            <td>78.4</td>
+            <td>80.0</td>
+            <td>67.0</td>
+            <td>52.0</td>
+            <td>43.3</td>
+            <td>83.1</td>
+            <td>61.3</td>
+            <td>71.1</td>
+          </tr>
+          <tr>
+            <td>Baichuan4-Turbo</td>
+            <td>66.4</td>
+            <td>57.3</td>
+            <td>56.8</td>
+            <td>82.0</td>
+            <td>72.4</td>
+            <td>61.0</td>
+            <td>59.5</td>
+            <td>66.7</td>
+            <td>78.9</td>
+            <td>55.4</td>
+            <td>74.6</td>
+          </tr>
+          <tr>
+            <td>GPT-4o</td>
+            <td>65.6</td>
+            <td>68.2</td>
+            <td>52.3</td>
+            <td>74.7</td>
+            <td>72.4</td>
+            <td>64.5</td>
+            <td>56.5</td>
+            <td>50.0</td>
+            <td>80.3</td>
+            <td>57.7</td>
+            <td>79.8</td>
+          </tr>
+          <tr>
+            <td>Doubao-1.5-pro-32k</td>
+            <td>64.0</td>
+            <td>69.6</td>
+            <td>64.0</td>
+            <td>62.9</td>
+            <td>74.1</td>
+            <td>56.5</td>
+            <td>64.5</td>
+            <td>48.9</td>
+            <td>69.0</td>
+            <td>62.6</td>
+            <td>68.2</td>
+          </tr>
+          <tr>
+            <td>Claude-3.5-Sonnet</td>
+            <td>63.8</td>
+            <td>70.6</td>
+            <td>56.8</td>
+            <td>73.2</td>
+            <td>64.1</td>
+            <td>63.0</td>
+            <td>31.5</td>
+            <td>62.2</td>
+            <td>81.7</td>
+            <td>65.2</td>
+            <td>69.4</td>
+          </tr>
+          <tr>
+            <td>Gemini-1.5-pro</td>
+            <td>61.1</td>
+            <td>59.8</td>
+            <td>49.6</td>
+            <td>67.0</td>
+            <td>70.0</td>
+            <td>56.0</td>
+            <td>43.5</td>
+            <td>55.6</td>
+            <td>81.7</td>
+            <td>54.1</td>
+            <td>73.4</td>
+          </tr>
+          <tr>
+            <td>o1-mini</td>
+            <td>55.4</td>
+            <td>59.1</td>
+            <td>41.4</td>
+            <td>53.1</td>
+            <td>37.1</td>
+            <td>59.0</td>
+            <td>53.0</td>
+            <td>58.9</td>
+            <td>64.8</td>
+            <td>63.6</td>
+            <td>64.2</td>
+          </tr>
+          <tr>
+            <td>Gemini-1.5-flash</td>
+            <td>54.5</td>
+            <td>62.9</td>
+            <td>35.1</td>
+            <td>57.2</td>
+            <td>46.5</td>
+            <td>52.5</td>
+            <td>53.0</td>
+            <td>36.7</td>
+            <td>74.7</td>
+            <td>54.4</td>
+            <td>71.7</td>
+          </tr>
+          <tr>
+            <th colspan="13">Open-Source Large Language Models</th>
+          </tr>
+          <tr>
+            <td>DeepSeek-R1</td>
+            <td>74.0</td>
+            <td>62.9</td>
+            <td>72.1</td>
+            <td>72.1</td>
+            <td>84.7</td>
+            <td>70.5</td>
+            <td>55.5</td>
+            <td>67.8</td>
+            <td>85.9</td>
+            <td>76.1</td>
+            <td>92.5</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-V3</td>
+            <td>72.2</td>
+            <td>67.5</td>
+            <td>64.9</td>
+            <td>74.2</td>
+            <td>80.6</td>
+            <td>69.0</td>
+            <td>62.0</td>
+            <td>72.2</td>
+            <td>77.5</td>
+            <td>68.2</td>
+            <td>86.1</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-V2.5</td>
+            <td>67.4</td>
+            <td>66.4</td>
+            <td>58.6</td>
+            <td>73.7</td>
+            <td>76.5</td>
+            <td>64.0</td>
+            <td>60.0</td>
+            <td>75.6</td>
+            <td>83.1</td>
+            <td>54.1</td>
+            <td>61.8</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-67B</td>
+            <td>58.4</td>
+            <td>61.2</td>
+            <td>47.7</td>
+            <td>70.6</td>
+            <td>62.9</td>
+            <td>47.0</td>
+            <td>52.5</td>
+            <td>60.0</td>
+            <td>59.2</td>
+            <td>55.7</td>
+            <td>67.1</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-7B</td>
+            <td>47.5</td>
+            <td>38.5</td>
+            <td>41.1</td>
+            <td>59.3</td>
+            <td>45.9</td>
+            <td>40.0</td>
+            <td>49.0</td>
+            <td>54.4</td>
+            <td>47.9</td>
+            <td>54.4</td>
+            <td>44.7</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-R1-Distill-Qwen-32B</td>
+            <td>57.1</td>
+            <td>63.6</td>
+            <td>46.0</td>
+            <td>62.4</td>
+            <td>47.6</td>
+            <td>36.0</td>
+            <td>43.0</td>
+            <td>61.1</td>
+            <td>78.9</td>
+            <td>61.6</td>
+            <td>70.6</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-R1-Distill-Qwen-14B</td>
+            <td>50.6</td>
+            <td>64.7</td>
+            <td>43.2</td>
+            <td>62.9</td>
+            <td>38.8</td>
+            <td>27.5</td>
+            <td>41.0</td>
+            <td>60.0</td>
+            <td>67.6</td>
+            <td>59.0</td>
+            <td>40.9</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-R1-Distill-Qwen-7B</td>
+            <td>38.9</td>
+            <td>48.6</td>
+            <td>18.0</td>
+            <td>53.6</td>
+            <td>16.5</td>
+            <td>25.0</td>
+            <td>35.5</td>
+            <td>36.7</td>
+            <td>52.1</td>
+            <td>48.2</td>
+            <td>57.2</td>
+          </tr>
+          <tr>
+            <td>DeepSeek-R1-Distill-Qwen-1.5B</td>
+            <td>26.2</td>
+            <td>35.7</td>
+            <td>2.7</td>
+            <td>46.9</td>
+            <td>6.5</td>
+            <td>8.5</td>
+            <td>23.5</td>
+            <td>18.9</td>
+            <td>40.9</td>
+            <td>40.0</td>
+            <td>38.2</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-72B</td>
+            <td>62.7</td>
+            <td>57.3</td>
+            <td>46.0</td>
+            <td>66.0</td>
+            <td>64.7</td>
+            <td>55.5</td>
+            <td>58.0</td>
+            <td>67.8</td>
+            <td>76.1</td>
+            <td>56.7</td>
+            <td>78.6</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-32B</td>
+            <td>60.9</td>
+            <td>62.2</td>
+            <td>42.3</td>
+            <td>58.8</td>
+            <td>50.6</td>
+            <td>61.5</td>
+            <td>52.5</td>
+            <td>66.7</td>
+            <td>74.7</td>
+            <td>62.3</td>
+            <td>77.5</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-14B</td>
+            <td>55.3</td>
+            <td>57.0</td>
+            <td>40.5</td>
+            <td>54.6</td>
+            <td>48.8</td>
+            <td>59.0</td>
+            <td>49.0</td>
+            <td>40.0</td>
+            <td>66.2</td>
+            <td>59.3</td>
+            <td>78.6</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-7B</td>
+            <td>47.1</td>
+            <td>45.8</td>
+            <td>24.3</td>
+            <td>51.6</td>
+            <td>37.6</td>
+            <td>44.5</td>
+            <td>54.0</td>
+            <td>31.1</td>
+            <td>64.8</td>
+            <td>48.5</td>
+            <td>68.8</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-3B</td>
+            <td>41.7</td>
+            <td>52.1</td>
+            <td>14.4</td>
+            <td>41.8</td>
+            <td>34.1</td>
+            <td>42.5</td>
+            <td>34.0</td>
+            <td>30.0</td>
+            <td>60.6</td>
+            <td>51.1</td>
+            <td>56.7</td>
+          </tr>
+          <tr>
+            <td>LLaMA3.1-70B</td>
+            <td>54.6</td>
+            <td>59.1</td>
+            <td>35.7</td>
+            <td>58.8</td>
+            <td>39.4</td>
+            <td>58.0</td>
+            <td>37.5</td>
+            <td>73.3</td>
+            <td>74.7</td>
+            <td>53.8</td>
+            <td>56.1</td>
+          </tr>
+          <tr>
+            <td>LLaMA3.1-8B</td>
+            <td>42.4</td>
+            <td>40.6</td>
+            <td>11.7</td>
+            <td>61.3</td>
+            <td>17.1</td>
+            <td>42.0</td>
+            <td>38.5</td>
+            <td>42.2</td>
+            <td>66.2</td>
+            <td>44.6</td>
+            <td>60.0</td>
+          </tr>
+        </table>
+        
+        <div class="description2" style="margin-top: 30px; text-align: left;">
+          <p>
+            Results of different models on ChineseEcomQA. For sub-concepts, <strong>IC, IDC, CC, BC, AC, SC, ITC, RVC, RLC and PC</strong> represent “Industry Categorization”, “Industry Concept”, “Category Concept”, “Brand Concept”, “Attribute Concept”, “Spoken Concept”, “Intent Concept”, “Review Concept”, “Relevance Concept” and “Personalized Concept” respectively
+          </p>            
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Calibration capabilities of various models</h2>
+        <div class="image-container">
+            <img src="static/images/calibration.png" alt="" style="max-width: 100%; height: auto;">
+        </div>
+        <div class="description2", style="margin-top: 30px; text-align: left;">
+          <p>
+            In this section, we evaluate the calibration capabilities of various models on category concept
+            and brand concept, with results visualized in Figure 6.
+            The results demonstrate the correlation between the stated con-
+            fidence of the model, and how accurate the model actually was.
+            Notably, o1-preview exhibits the best alignment performance, fol-
+            lowed by o1-mini. Within the Qwen2.5 series, the calibration hier-
+            archy emerges as Qwen2.5-MAX > Qwen2.5-72B > Qwen2.5-14B
+            > Qwen2.5-7B > Qwen2.5-3B, suggesting that larger model scales
+            correlate with improved calibration. However, most models consis-
+            tently fall below the perfect alignment line, indicating a prevalent
+            tendency towards overconfidence in predictions. This highlights
+            significant room for improving large language model calibration to
+            mitigate overconfident generation of erroneous responses.
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Analysis On The Effect Of RAG</h2>
+          <div class="image-container">
+            <img src="static/images/RAG.png" alt="" style="max-width: 100%; height: auto;">
+          </div>
+          <div class="description2" style="margin-top: 30px; text-align: left;">
+            <p>
+              In this study, we explore the effectiveness of the Retrieval-Augmented Generation (RAG)
+              strategy in enhancing the domain knowledge of large language models (LLMs) on the
+              ChineseEcomQA dataset. Specifically, we reproduce a RAG system referring to the
+              settings of Chinese-SimpleQA on category concept and brand concept. In Figure 7, all
+              models improve significantly with RAG. We can summarize three detailed conclusions:
+            </p>
+            <ul style="margin-left: 20px; text-align: left; text-indent: 1em;">
+              <li style="margin-bottom: 0.5em;">
+                • For small LLMs, introducing RAG information can significantly increase the absolute
+                value of evaluation metrics. For example, Qwen2.5-14B has achieved a 27.9%
+                improvement.
+              </li>
+              <li style="margin-bottom: 0.5em;">
+                • For large LLMs, RAG can also achieve significant relative improvements. For example,
+                Deepseek V3's average relative improvement reached 10.44% (accuracy from 77.4 to
+                85.5).
+              </li>
+              <li style="margin-bottom: 0.5em;">
+                • Under the RAG setting, the performance between models still follows the scaling law,
+                but the gap is rapidly narrowed. For example, the difference in accuracy between
+                Deepseek-V3 and Qwen2.5-72B has narrowed from 12.1% to 4%.
+              </li>
+            </ul>
+            <p>
+              In conclusion, the discussions above suggest that RAG serves as an effective method for
+              enhancing the e-commerce knowledge of LLMs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Different thinking types in the reasoning LLMs.</h2>
+        <table class="table is-striped is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Behavior A</th>
+              <th>Behavior B</th>
+              <th>Behavior C</th>
+              <th>Behavior D</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DeepSeek-R1-Distill-Qwen-7B</td>
+              <td>23.97</td>
+              <td>2.17</td>
+              <td>68.02</td>
+              <td>5.85</td>
+            </tr>
+            <tr></tr>
+              <td>DeepSeek-R1-Distill-Qwen-14B</td>
+              <td>40.27</td>
+              <td>3.75</td>
+              <td>47.05</td>
+              <td>8.94</td>
+            </tr>
+            <tr>
+              <td>DeepSeek-R1-Distill-Qwen-32B</td>
+              <td>39.57</td>
+              <td>2.14</td>
+              <td>52.01</td>
+              <td>6.29</td> 
+            </tr>
+            <tr>
+              <td>Deepseek-R1</td>
+              <td>62.80</td>
+              <td>2.80</td>
+              <td>26.49</td>
+              <td>7.92</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="description2" style="margin-top: 30px; text-align: left;">
+          <p> Inspired by (Liu et al., 2025), we categorize the thinking process of reasoning models into the following four types:
+            <ul style="margin-left: 20px; text-align: left; text-indent: 1em;">
+              <li style="margin-bottom: 0.5em;">
+                • Type A: Reasoning LLMs repeatedly confirm the correct answer through self-reflections.
+              </li>
+              <li style="margin-bottom: 0.5em;">
+                • Type B: Reasoning LLMs initially makes a mistake but corrects it through self-reflection.
+              </li>
+              <li style="margin-bottom: 0.5em;">
+                • Type C: Reasoning LLMs introduce knowledge errors through self-reflections, resulting in potentially correct answers being modified into an incorrect ones.
+              </li>
+              <li style="margin-bottom: 0.5em;">
+                • Type D: Reasoning LLMs undergo repeated self-reflections. Although it ultimately produced an answer, it does not obtain a highly certain and confident answer through reflection.
+              </li>
+            </ul>
+            <p>
+              We used the judge LLMs (GPT-4o) to classify the thinking types of different models on category and brand concept tasks. The specific results can be seen in Table 2. Analyzing the dominant reasoning types, we found the following conclusions:
+              <ul style="margin-left: 20px; text-align: left; text-indent: 1em;">
+                <li style="margin-bottom: 0.5em;">
+                  • According to column Type A, after arriving at the correct answer, reasoning LLMs will verify this answer through multiple rounds of reflections.
+                </li>
+                <li style="margin-bottom: 0.5em;">
+                  • According to column Type B, reasoning LLMs, regardless of their size, have acquired the ability to correct their own erroneous
+                  thinking. In the context of e-commerce concept, the underlying reasoning paths are less complex than in areas like mathematics
+                  or programming, leading to less frequent self-correction. The results also indicate that the error-correction processes do not lead
+                  to a substantial enhancement in their knowledge capacity
+                </li>
+                <li style="margin-bottom: 0.5em;">
+                  • According to column Type C, smaller LLMs are more likely to introduce factual errors during their thinking process, which can
+                  lead to incorrect answers. This is one of the important reasons why smaller reasoning LLMs perform worse than the original Qwen series models.
+                </li>
+              </ul>
+            </p>
+            <p>
+              Overall, types A and B are the ability of reasoning LLMs obtained through scaling up test-time computation. Types C and D are superficial self-reflections that lead to incorrect final answers. Deepseek-R1 demonstrates better generalization ability based on a
+              powerful base model. In contrast, the DeepSeek-R1-Distill-Qwen series, distilled in some specific fields, appears to struggle with
+              superficial self-reflections. The accumulation of factual errors during the intermediate reasoning steps increases the overall error rate.
+              For smaller reasoning LLMs, reasoning ability in open domains cannot be directly generalized through mathematical logic ability,
+              and we need to find better methods to improve their performance.
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Rankings on ChineseEcomQA vs. Chinese SimpleQA</h2>
+        <div class="image-container">
+            <img src="static/images/rank_range.png" alt="" style="max-width: 100%; height: auto;">
+        </div>
+        <div class="description2", style="margin-top: 30px; text-align: left;">
+          <p>
+            To demonstrate the distinctions between ChineseSimpleQA and ChineseEcomQA, we compare the ranking differences of various
+            models across these two benchmarks. As illustrated in Figure, significant performance discrepancies emerge among various models.
+            Notably, the o1-preview model ranks first on ChineseSimpleQA but drops to 4th position on ChineseEcomQA. Conversely, GLM-4-Plus ascends from 3rd to 1st place between the two benchmarks. These
+            ranking variations reveal that most Chinese community-developed models (e.g., Qwen-Max, GLM-4-Plus, Yi-Large) exhibit superior performance on Chinese e-commerce domain adaptation when
+            operating within identical linguistic contexts. Furthermore, the distinct ranking distributions across models indicate that ChineseEcomQA exhibits discriminative power complementary to ChineseSimpleQA, enabling comprehensive evaluation of LLMs' domain-
+            specific capability in Chinese e-commerce scenarios
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Dataset Examples</h2>
+          <div class="image-container">
+            <img src="static/images/data_example.png" alt="" style="max-width: 100%; height: auto;">
+          </div>
+          <div class="description2" style="margin-top: 30px; text-align: left;">
+            <p>This picture shows a few examples from the ChineseEcomQA dataset. More samples are available in the complete dataset.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{he2024chinesesimpleqachinesefactuality,
+      title={Chinese SimpleQA: A Chinese Factuality Evaluation for Large Language Models}, 
+      author={Yancheng He and Shilong Li and Jiaheng Liu and Yingshui Tan and Weixun Wang and Hui Huang and Xingyuan Bu and Hangyu Guo and Chengwei Hu and Boren Zheng and Zhuoran Lin and Xuepeng Liu and Dekai Sun and Shirong Lin and Zhicheng Zheng and Xiaoyong Zhu and Wenbo Su and Bo Zheng},
+      year={2024},
+      eprint={2411.07140},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2411.07140}, 
+}</code></pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This site is created based on <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> and is licensed under <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
