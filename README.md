@@ -1,86 +1,48 @@
-# Overview
+# Academic Project Page Template
+This is an academic paper project page template.
 
 
-<p align="center">
-  <img src="image/title.png" width="800px"/>
-</p>
-
-
-**ChineseEcomQA** a scalable question-answering benchmark focused on fundamental e-commerce concepts. Specifically, our benchmark is built on three core characteristics: Focus on **Fundamental Concept**, **E-commerce Generality** and **E-commerce Expertise**.
-
- Please visit our [website](https://github.com/OpenStellarTeam/ChineseEcomQA/tree/main) or check our [paper](https://arxiv.org/abs/2502.20196) for more details. 
-
-
-## 🆕 News
-
-- **\[2025.3.5]** We have released the ChineseEcomQA dataset. 
-- The comprehensive Detailed Introduction will be released after soon. **Stay tuned** 🔥🔥🔥
+Example project pages built using this template are:
+- https://vision.huji.ac.il/spectral_detuning/
+- https://vision.huji.ac.il/podd/
+- https://dreamix-video-editing.github.io
+- https://vision.huji.ac.il/conffusion/
+- https://vision.huji.ac.il/3d_ads/
+- https://vision.huji.ac.il/ssrl_ad/
+- https://vision.huji.ac.il/deepsim/
 
 
 
-## 💫 Instroduction
+## Start using the template
+To start using the template click on `Use this Template`.
 
-With the increasing use of Large Language Models (LLMs) in fields such as e-commerce, domain-specific concept evaluation benchmarks are crucial for assessing their domain capabilities. Existing LLMs may generate factually incorrect information within the complex e-commerce applications. Therefore, it is necessary to build an e-commerce concept benchmark. Existing benchmarks encounter two primary challenges:
+The template uses html for controlling the content and css for controlling the style. 
+To edit the websites contents edit the `index.html` file. It contains different HTML "building blocks", use whichever ones you need and comment out the rest.  
 
- (1) handle the heterogeneous and diverse nature of tasks
+**IMPORTANT!** Make sure to replace the `favicon.ico` under `static/images/` with one of your own, otherwise your favicon is going to be a dreambooth image of me.
 
- (2) distinguish between generality and specificity
+## Components
+- Teaser video
+- Images Carousel
+- Youtube embedding
+- Video Carousel
+- PDF Poster
+- Bibtex citation
 
-within the e-commerce field. To address these problems, we propose ChineseEcomQA, a scalable question-answering benchmark focused on fundamental e-commerce concepts. 
+## Tips:
+- The `index.html` file contains comments instructing you what to replace, you should follow these comments.
+- The `meta` tags in the `index.html` file are used to provide metadata about your paper 
+(e.g. helping search engine index the website, showing a preview image when sharing the website, etc.)
+- The resolution of images and videos can usually be around 1920-2048, there rarely a need for better resolution that take longer to load. 
+- All the images and videos you use should be compressed to allow for fast loading of the website (and thus better indexing by search engines). For images, you can use [TinyPNG](https://tinypng.com), for videos you can need to find the tradeoff between size and quality.
+- When using large video files (larger than 10MB), it's better to use youtube for hosting the video as serving the video from the website can take time.
+- Using a tracker can help you analyze the traffic and see where users came from. [statcounter](https://statcounter.com) is a free, easy to use tracker that takes under 5 minutes to set up. 
+- This project page can also be made into a github pages website.
+- Replace the favicon to one of your choosing (the default one is of the Hebrew University). 
+- Suggestions, improvements and comments are welcome, simply open an issue or contact me. You can find my contact information at [https://pages.cs.huji.ac.il/eliahu-horwitz/](https://pages.cs.huji.ac.il/eliahu-horwitz/)
 
-**ChineseEcomQA** is built on three core characteristics: Focus on **Fundamental Concept**, **E-commerce Generality** and **E-commerce Expertise**. Fundamental concepts are designed to be applicable across a diverse array of e-commerce tasks, thus addressing the challenge of heterogeneity and diversity. Additionally, by carefully balancing generality and specificity, ChineseEcomQA effectively differentiates between broad e-commerce concepts, allowing for precise validation of domain capabilities. 
+## Acknowledgments
+Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.
 
-We achieve this through a scalable benchmark construction process that combines LLM validation, Retrieval-Augmented Generation (RAG) validation, and rigorous manual annotation. Based on ChineseEcomQA, we conduct extensive evaluations on mainstream LLMs and provide some valuable insights. We hope that ChineseEcomQA could guide future domain-specific evaluations, and facilitate broader LLM adoption in e-commerce applications.
-
-
-
-## 🛠️ Setup
-
-Due to the optional dependencies, we're not providing a unified setup mechanism. Instead, we're providing instructions for each eval and sampler.
-
-For [HumanEval](https://github.com/openai/human-eval/) (python programming)
-
-```bash
-git clone https://github.com/openai/human-eval
-pip install -e human-eval
-```
-
-For the [OpenAI API](https://pypi.org/project/openai/):
-
-```bash
-pip install openai
-```
-
-For the [Anthropic API](https://docs.anthropic.com/claude/docs/quickstart-guide):
-
-```bash
-pip install anthropic
-```
-
-For the [GLM API](https://www.bigmodel.cn/dev/api/normal-model/glm-4):
-
-```bash
-pip install zhipuai
-```
-
-
-
-## ⚖️ Evals
-
-
-
-## Citation
-
-Please cite our paper if you use our dataset.
-
-```
-@misc{chen2025chineseecomqascalableecommerceconcept,
-      title={ChineseEcomQA: A Scalable E-commerce Concept Evaluation Benchmark for Large Language Models}, 
-      author={Haibin Chen and Kangtao Lv and Chengwei Hu and Yanshi Li and Yujin Yuan and Yancheng He and Xingyao Zhang and Langming Liu and Shilei Liu and Wenbo Su and Bo Zheng},
-      year={2025},
-      eprint={2502.20196},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2502.20196}, 
-}
-```
+## Website License
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
